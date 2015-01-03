@@ -27,3 +27,10 @@ object PremiumUser {
 object premiumCandidate {
   def unapply(user: FreeUser): Boolean = user.upgradeProbability > 0.74
 }
+
+object GivenNames {
+  def unapplySeq(name:String): Option[Seq[String]] = {
+    val names = name.trim.split(" ")
+    if (names.forall(_.isEmpty())) None else Some(names)
+  }
+}
