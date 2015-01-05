@@ -15,11 +15,19 @@ object pattern_match_anonymous_fcts {
 
   println(wordsWithOutliers(wordFrequencies))     //> List(habitual, homely, society)
 
-	// Using pattern matching anonymous function
+  // Using pattern matching anonymous function
   def wordsWithOutliers1(wordFrequencies: Seq[(String, Int)]): Seq[String] =
     wordFrequencies.filter {
       case (_, f) =>
         f > 3 && f < 25
     } map { case (w, _) => w }                    //> wordsWithOutliers1: (wordFrequencies: Seq[(String, Int)])Seq[String]
-    println(wordsWithOutliers1(wordFrequencies))  //> List(habitual, homely, society)
+  println(wordsWithOutliers1(wordFrequencies))    //> List(habitual, homely, society)
+
+  // partial function using collect()
+  def wordsWithOutliers2(wordFrequencies: Seq[(String, Int)]): Seq[String] =
+    wordFrequencies.collect {
+      case (word, freq) if freq > 3 && freq < 25 => word
+    }                                             //> wordsWithOutliers2: (wordFrequencies: Seq[(String, Int)])Seq[String]
+
+  println(wordsWithOutliers2(wordFrequencies))    //> List(habitual, homely, society)
 }
