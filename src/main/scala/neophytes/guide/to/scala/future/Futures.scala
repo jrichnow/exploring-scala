@@ -57,15 +57,15 @@ object Futures {
     println("it's done!")
     "cappuccino"}
 
-  def prepareCappuccino(): Future[Cappuccino] = {
-    val groundCoffee = grind("arabica beans")
-    val heatedWater = heatWater(Water(20))
-    val frothedMilk = frothMilk("milk")
-    for {
-      ground <- groundCoffee
-      water <- heatedWater
-      foam <- frothedMilk
-      espresso <- brew(ground, water)
-    } yield combine(espresso, foam)
-  }
+//  def prepareCappuccino(): Future[Cappuccino] = {
+//    val groundCoffee = grind("arabica beans")
+//    val heatedWater = heatWater(Water(20))
+//    val frothedMilk = frothMilk("milk")
+//    for {
+//      ground <- groundCoffee
+//      water <- heatedWater
+//      foam <- frothedMilk
+//      espresso <- brew(ground, water)
+//    } yield combine(espresso, foam)
+//  }
 }
