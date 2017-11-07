@@ -5,19 +5,22 @@ import java.io.{BufferedWriter, File, FileWriter, PrintWriter}
 import scala.io.Source
 import java.sql.{Connection, Date, DriverManager, Statement}
 
-import au.com.bytecode.opencsv.CSVWriter
-
-import scala.collection.mutable.ListBuffer
 
 object SeedingAllianceInventoryImport {
 
-  val csvInFile = "/users/jensr/Temp/SA-modified.csv"
-  val csvOutFile = "/users/jensr/Temp/SA-modified-updated.csv"
+//  val csvInFile = "/users/jensr/Temp/SA-modified.csv"
+//  val csvOutFile = "/users/jensr/Temp/SA-modified-updated.csv"
+  val csvInFile = "/users/jensr/Temp/new-SA-Slots-3-nov.csv"
+  val csvOutFile = "/users/jensr/Temp/new-SA-Slots-3-nov.csv-updated-prod.csv"
 
   val dbDriver = "org.postgresql.Driver"
+
   val dbUrl = "jdbc:postgresql://db01:5432/adscale"
   val dbUsername = "adscale"
   val dbPassword = "s0ci4lw3lfar3"
+//  val dbUrl = "jdbc:postgresql://10.14.15.80:5432/adscale_pte"
+//  val dbUsername = "adscale"
+//  val dbPassword = "adscale"
 
   var connection:Connection = null
 
@@ -74,13 +77,13 @@ object SeedingAllianceInventoryImport {
     }
 
     connection.prepareStatement("commit").execute()
+//    connection.prepareStatement("rollback").execute()
 
     writeCsv(updatedLineItems)
   }
 
   private def writeCsv(lineItems: Seq[LineItem]): Unit = {
     lineItems.foreach(println(_))
-    // TODO write to csv
     lineItems.sortBy(_.naturalLineNumber).foreach(l => println(l.toCsv()))
 
     val bw = new BufferedWriter(new FileWriter(csvOutFile))
@@ -93,7 +96,11 @@ object SeedingAllianceInventoryImport {
   }
 
   private def getLineItems(): Seq[LineItem] = {
-    val csv = Source.fromFile(csvInFile).getLines().toSeq
+    val lines = Source.fromFile(csvInFile).getLines()
+    println(lines)
+
+    val csv = lines.toSeq
+    println(csv)
     println(csv.head)
     println(s"${csv.size} entries")
 
@@ -130,15 +137,19 @@ object SeedingAllianceInventoryImport {
 
     println(s"creating a slot $slotName for website $websiteId")
     val insertSlot = "insert into slot (id, name, fk_website_id, fk_backfill_id, list_price_cpm, min_price_cpm, " +
-      "created_date, ad_dimension, mod_time, slot_type) " +
-      "values (nextval('slot_seq'), ?, ?, currval('backfill_seq'), ?, ?, now(), ?, now(), ?)"
+      "created_date, ad_dimension, title_color, text_color, background_color, border_color, mod_time, slot_type) " +
+      "values (nextval('slot_seq'), ?, ?, currval('backfill_seq'), ?, ?, now(), ?, ?, ?, ?, ?, now(), ?)"
     val slotStatement = connection.prepareStatement(insertSlot)
     slotStatement.setString(1, slotName)
     slotStatement.setLong(2, websiteId)
     slotStatement.setFloat(3, 0.05f)
     slotStatement.setFloat(4, 0.05f)
     slotStatement.setString(5, "NATIVE")
-    slotStatement.setString(6, "NATIVE")
+    slotStatement.setString(6, "#0000FF")
+    slotStatement.setString(7, "#000000")
+    slotStatement.setString(8, "#FFFFFF")
+    slotStatement.setString(9, "#000000")
+    slotStatement.setString(10, "NATIVE")
 
     val updatedRows = slotStatement.executeUpdate()
     // TODO check that we did an update before continuing?
@@ -185,7 +196,7 @@ object SeedingAllianceInventoryImport {
     websiteIdRs.next()
     val websiteId = websiteIdRs.getLong(1)
 
-    val selectDefaultFilterId = "SELECT id FROM publisher_auto_approval_filter WHERE account_id = ?"
+    val selectDefaultFilterId = "SELECT id FROM publisher_auto_approval_filter WHERE account_id = ? and is_default is true"
     val filterIdStatement = connection.prepareStatement(selectDefaultFilterId);
     filterIdStatement.setLong(1, lineItem.sspAccountId)
     val filterIdRs = filterIdStatement.executeQuery()
