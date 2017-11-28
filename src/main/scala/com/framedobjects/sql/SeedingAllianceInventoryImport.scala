@@ -10,8 +10,8 @@ object SeedingAllianceInventoryImport {
 
 //  val csvInFile = "/users/jensr/Temp/SA-modified.csv"
 //  val csvOutFile = "/users/jensr/Temp/SA-modified-updated.csv"
-  val csvInFile = "/users/jensr/Documents/DevNotes/SA-inventory-import/SA2411172-modified.csv"
-  val csvOutFile = "/users/jensr/Documents/DevNotes/SA-inventory-import/SA2411172-updated-prod.csv"
+  val csvInFile = "/users/jensr/Documents/DevNotes/investigations/SA-inventory-import/SA2411172-modified.csv"
+  val csvOutFile = "/users/jensr/Documents/DevNotes/investigations/SA-inventory-import/SA2411172-updated-prod.csv"
 
   val dbDriver = "org.postgresql.Driver"
 
