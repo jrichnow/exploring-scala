@@ -10,17 +10,14 @@ object SeedingAllianceInventoryImport {
 
 //  val csvInFile = "/users/jensr/Temp/SA-modified.csv"
 //  val csvOutFile = "/users/jensr/Temp/SA-modified-updated.csv"
-  val csvInFile = "/users/jensr/Temp/new-SA-Slots-3-nov.csv"
-  val csvOutFile = "/users/jensr/Temp/new-SA-Slots-3-nov.csv-updated-prod.csv"
+  val csvInFile = "/users/jensr/Documents/DevNotes/SA-inventory-import/SA2411172-modified.csv"
+  val csvOutFile = "/users/jensr/Documents/DevNotes/SA-inventory-import/SA2411172-updated-prod.csv"
 
   val dbDriver = "org.postgresql.Driver"
 
-  val dbUrl = "jdbc:postgresql://db01:5432/adscale"
+  val dbUrl = "jdbc:postgresql://10.14.15.80:5432/adscale_pte"
   val dbUsername = "adscale"
-  val dbPassword = "s0ci4lw3lfar3"
-//  val dbUrl = "jdbc:postgresql://10.14.15.80:5432/adscale_pte"
-//  val dbUsername = "adscale"
-//  val dbPassword = "adscale"
+  val dbPassword = "adscale"
 
   var connection:Connection = null
 
@@ -32,8 +29,6 @@ object SeedingAllianceInventoryImport {
     val lineItems = getLineItems()
     println(s"${lineItems.size} tuples")
 
-    // websites
-    // check whether account exists
     connection.prepareStatement("begin transaction").execute()
 
     var updatedLineItems = Seq[LineItem]()
