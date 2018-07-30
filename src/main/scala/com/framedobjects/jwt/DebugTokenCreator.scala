@@ -8,7 +8,7 @@ object DebugTokenCreator {
     val header = JwtHeader("HS256")
     val claimsSet = JwtClaimsSet(Map(
       "user-name" -> "Jens",
-      "trace-id" -> "jens-testing-display-migration",
+      "trace-id"-> "jens-testing-ppv",
       "iss" -> "stroeer-ssp",
       "ssp-version" -> "1.0.2",
       "partner_ids" -> "1"))

@@ -8,8 +8,8 @@ import java.sql.{Connection, DriverManager}
 
 object SeedingAllianceInventoryImport {
 
-  val csvInFile = "/users/jensr/Documents/DevNotes/investigations/SA-inventory-import/SA05032018-modified.csv"
-  val csvOutFile = "/users/jensr/Documents/DevNotes/investigations/SA-inventory-import/SA05032018-updated-prod-test.csv"
+  val csvInFile = "/users/jensr/Documents/DevNotes/investigations/SA-inventory-import/SA02052018-2-modified2.csv"
+  val csvOutFile = "/users/jensr/Documents/DevNotes/investigations/SA-inventory-import/SA02052018-2-updated-prod.csv"
 
   def main(args: Array[String]): Unit = {
     val lineItems = getLineItems
@@ -69,7 +69,7 @@ object SeedingAllianceInventoryImport {
     val dbDriver = "org.postgresql.Driver"
 
     val dbUrl = "jdbc:postgresql://localhost:5432/adscale"
-    val dbUsername = ""
+    val dbUsername = "adscale"
     val dbPassword = ""
 
     Class.forName(dbDriver)
