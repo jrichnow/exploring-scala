@@ -7,9 +7,9 @@ object DbUtil {
   def getDbConnection: Connection = {
     val dbDriver = "org.postgresql.Driver"
 
-    val dbUrl = "jdbc:postgresql://10.14.15.64:5432/adscale_pte"
+    val dbUrl = "jdbc:postgresql://localhost:5432/adscale"
     val dbUsername = "adscale"
-    val dbPassword = "mmmbeer"
+    val dbPassword = ""
 
     Class.forName(dbDriver)
     DriverManager.getConnection(dbUrl, dbUsername, dbPassword)

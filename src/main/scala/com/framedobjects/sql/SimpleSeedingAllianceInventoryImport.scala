@@ -8,7 +8,7 @@ import scala.io.Source
 object SimpleSeedingAllianceInventoryImport {
 
   val csvInFile = "/users/jensr/Documents/DevNotes/investigations/SA-inventory-import/20180730_seeding_stroeer_digital.csv"
-  val csvOutFile = "/users/jensr/Documents/DevNotes/investigations/SA-inventory-import/20180730_seeding_stroeer_digital_updated.csv"
+  val csvOutFile = "/users/jensr/Documents/DevNotes/investigations/SA-inventory-import/20180730_seeding_stroeer_digital_prod_updated.csv"
   val seedingAllianceAccountId = 17229
 
   def main(args: Array[String]): Unit = {
@@ -23,7 +23,7 @@ object SimpleSeedingAllianceInventoryImport {
 
   private def createEntities(lineItems: Seq[ShortLineItem]): Seq[ShortLineItem] = {
     implicit val connection: Connection = DbUtil.getDbConnection
-    implicit val doCommit: Boolean = false
+    implicit val doCommit: Boolean = true
 
     var updatedLineItems = Seq[ShortLineItem]()
 
