@@ -8,7 +8,7 @@ object SeedingAllianceSetFilterForWebsite {
   private val filterName = "OMS Netzwerk allgemein"
 
   def main(args: Array[String]): Unit = {
-    implicit val connection: Connection = DbUtil.getDbConnection
+    implicit val connection: Connection = DbUtil.getPostgresDbConnection
     implicit val doCommit: Boolean = true
 
     DbUtil.transaction {

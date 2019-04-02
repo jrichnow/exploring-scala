@@ -22,7 +22,7 @@ object SimpleSeedingAllianceInventoryImport {
   }
 
   private def createEntities(lineItems: Seq[ShortLineItem]): Seq[ShortLineItem] = {
-    implicit val connection: Connection = DbUtil.getDbConnection
+    implicit val connection: Connection = DbUtil.getPostgresDbConnection
     implicit val doCommit: Boolean = true
 
     var updatedLineItems = Seq[ShortLineItem]()

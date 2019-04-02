@@ -4,12 +4,23 @@ import java.sql.{Connection, DriverManager}
 
 object DbUtil {
 
-  def getDbConnection: Connection = {
+  def getPostgresDbConnection: Connection = {
     val dbDriver = "org.postgresql.Driver"
 
-    val dbUrl = "jdbc:postgresql://localhost:5432/adscale"
+    val dbUrl = "jdbc:postgresql://db01:5432/adscale"
     val dbUsername = "adscale"
-    val dbPassword = ""
+    val dbPassword = "s0ci4lw3lfar3"
+
+    Class.forName(dbDriver)
+    DriverManager.getConnection(dbUrl, dbUsername, dbPassword)
+  }
+
+  def getVerticaDbConnection: Connection = {
+    val dbDriver = "com.vertica.jdbc.Driver"
+
+    val dbUrl = "jdbc:vertica://vert03:5433/adscale"
+    val dbUsername = "adscale"
+    val dbPassword = "s0ci4lw3lfar3"
 
     Class.forName(dbDriver)
     DriverManager.getConnection(dbUrl, dbUsername, dbPassword)
