@@ -22,7 +22,7 @@ object SeedingAllianceInventoryImport {
 
   private def createEntities(lineItems: Seq[LineItem]): Seq[LineItem] = {
     implicit val connection: Connection = getDbConnection
-    implicit val doCommit: Boolean = true
+    implicit val doCommit: Boolean = false
 
     var updatedLineItems = Seq[LineItem]()
     transaction {
